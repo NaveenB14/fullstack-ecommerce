@@ -7,7 +7,7 @@ import authMiddleware from "../middleware/authMiddleware.js";
 const router = express.Router();
 
 // REGISTER
-router.post("/api/users/register", async (req, res) => {
+router.post("/register", async (req, res) => {
   try {
     const { name, email, password } = req.body;
 
