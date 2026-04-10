@@ -29,6 +29,10 @@ function Login() {
       alert("Login failed ❌");
     }
   };
+  <p>
+    Don't have account?{" "}
+    <span onClick={() => navigate("/register")}>Register</span>
+  </p>;
 
   return (
     <div style={{ padding: "20px", textAlign: "center" }}>
