@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const API = axios.create({
-  baseURL: "http://localhost:5000/api"
+  baseURL: "https://fullstack-ecommerce-mz3v.onrender.com"
 });
 
 export default API;
