@@ -13,12 +13,13 @@ function Register() {
 
   const handleRegister = async () => {
     try {
-      await API.post("/users/register", form);
+      const res = await API.post("/users/register", form);
 
+      console.log(res.data);
       alert("Registration successful ✅");
-      navigate("/login");
+      navigate("/");
     } catch (err) {
-      console.log(err);
+      console.log(err.response?.data);
       alert("Registration failed ❌");
     }
   };
