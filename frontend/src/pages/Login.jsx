@@ -1,34 +1,35 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import API from "../services/api";
+import Loader from "../components/Loader";
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
 
   const handleLogin = async () => {
     try {
+      setLoading(true); // 🔥 start loading
+
       const res = await API.post("/users/login", {
         email,
         password,
       });
 
-      console.log("SUCCESS:", res.data);
-
-      // store token
       localStorage.setItem("token", res.data.token);
 
-      alert("Login successful 🚀");
-
-      // redirect to products page
+      alert("Login successful ✅");
       navigate("/products");
     } catch (err) {
-      console.log("ERROR:", err.response?.data || err.message);
       alert("Login failed ❌");
+    } finally {
+      setLoading(false); // 🔥 stop loading
     }
   };
+
   <p>
     Don't have account?{" "}
     <span onClick={() => navigate("/register")}>Register</span>
@@ -58,13 +59,17 @@ function Login() {
 
       <button
         onClick={handleLogin}
-        style={{
-          padding: "10px 20px",
-          marginTop: "10px",
-          cursor: "pointer",
-        }}
+        disabled={loading}
+        className="bg-blue-500 text-white px-4 py-2 rounded flex items-center justify-center gap-2"
       >
-        Login
+        {loading ? (
+          <>
+            <Loader />
+            Logging in...
+          </>
+        ) : (
+          "Login"
+        )}
       </button>
     </div>
   );
